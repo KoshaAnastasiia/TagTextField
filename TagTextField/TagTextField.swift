@@ -52,20 +52,21 @@ struct TagTextField: View {
     
     @ViewBuilder
     var textInputView: some View {
-        TextField(placeholder, text: $keyword, onCommit: {
-            if keyword.count > 0,
-               let result = checkKeyword?(keyword), tags.contains(result) == false {
-                tags.append(result)
+        TextField(placeholder, text: $keyword)
+            .onSubmit {
+                if keyword.count > 0,
+                   let result = checkKeyword?(keyword), tags.contains(result) == false {
+                    keyword = ""
+                    tags.append(result)
+                }
             }
-            keyword = ""
-        })
-        .textFieldStyle(PlainTextFieldStyle())
-        .font(.system(size: 12))
-        .foregroundColor(.black)
-        .disableAutocorrection(true)
-        .padding(6)
-        .background(Color(.sRGB, red: 244.0/255.0, green: 245.0/255.0, blue: 249.0/255.0, opacity: 1))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+            .textFieldStyle(PlainTextFieldStyle())
+            .font(.system(size: 12))
+            .foregroundColor(.black)
+            .disableAutocorrection(true)
+            .padding(6)
+            .background(Color(.sRGB, red: 244.0/255.0, green: 245.0/255.0, blue: 249.0/255.0, opacity: 1))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
         //.autocapitalization(.none)
     }
     
